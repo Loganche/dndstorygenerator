@@ -1,2 +1,2 @@
 # dndstorygenerator
-D&amp;D Story Generator Andorid App
+D&amp;D Story Generator Android App
