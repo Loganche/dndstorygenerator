@@ -46,6 +46,7 @@ class DiceRoller : ComponentActivity() {
     }
 }
 
+
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun RollAllDices(dices: List<Dice> = DiceData.dices) {
@@ -73,7 +74,9 @@ fun RollDice(dice: Dice) {
     }
 
     Card(
+        elevation = 4.dp,
         modifier = Modifier
+            .padding(8.dp)
             .fillMaxWidth()
             .clickable {
                 diceResult = dice.roll()
@@ -83,7 +86,6 @@ fun RollDice(dice: Dice) {
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-                .padding(8.dp)
         ) {
             Column(
                 verticalArrangement = Arrangement.SpaceEvenly,
@@ -93,7 +95,7 @@ fun RollDice(dice: Dice) {
                     painter = painterResource(id = diceIcon),
                     contentDescription = "Dice Icon",
                     modifier = Modifier
-                        .padding(12.dp)
+                        .padding(all = 12.dp)
                         .scale(1.5F)
                 )
 
