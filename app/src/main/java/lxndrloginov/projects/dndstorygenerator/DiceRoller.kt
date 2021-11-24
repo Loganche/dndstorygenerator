@@ -22,8 +22,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import lxndrloginov.projects.dndstorygenerator.data.Dice
 import lxndrloginov.projects.dndstorygenerator.data.DiceData
 import lxndrloginov.projects.dndstorygenerator.ui.theme.DndstorygeneratorappTheme
@@ -36,7 +39,7 @@ class DiceRoller : ComponentActivity() {
             DndstorygeneratorappTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    rollAllDices()
+                    RollAllDices()
                 }
             }
         }
@@ -45,27 +48,27 @@ class DiceRoller : ComponentActivity() {
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun rollAllDices(dices: List<Dice> = DiceData.dices) {
+fun RollAllDices(dices: List<Dice> = DiceData.dices) {
     LazyVerticalGrid(
         cells = GridCells.Fixed(2)
     ) {
         items(dices) { dice ->
-            rollDice(dice)
+            RollDice(dice)
         }
     }
 }
 
 
 @Composable
-fun rollDice(dice: Dice) {
+fun RollDice(dice: Dice) {
 
     var diceResult by remember {
         mutableStateOf(dice.roll())
     }
-    var diceSides by remember {
+    val diceSides by remember {
         mutableStateOf(dice.numSides)
     }
-    var diceIcon by remember {
+    val diceIcon by remember {
         mutableStateOf(dice.imageId)
     }
 
@@ -76,8 +79,16 @@ fun rollDice(dice: Dice) {
                 diceResult = dice.roll()
             }
     ) {
-        Row() {
-            Column() {
+        Row(
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .padding(8.dp)
+        ) {
+            Column(
+                verticalArrangement = Arrangement.SpaceEvenly,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
                 Image(
                     painter = painterResource(id = diceIcon),
                     contentDescription = "Dice Icon",
@@ -86,22 +97,20 @@ fun rollDice(dice: Dice) {
                         .scale(1.5F)
                 )
 
-                Spacer(modifier = Modifier.height(8.dp))
-
                 Text(
                     text = "$diceSides sides",
-                    style = MaterialTheme.typography.body2,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Medium,
                     modifier = Modifier
-                        .padding(8.dp)
                 )
             }
 
-            Spacer(modifier = Modifier.width(8.dp))
-
             Text(
                 text = "$diceResult",
-                style = MaterialTheme.typography.subtitle2,
-                modifier = Modifier.padding(all = 4.dp),
+                fontSize = 60.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Left,
+                modifier = Modifier
             )
         }
     }
@@ -118,9 +127,9 @@ fun rollDice(dice: Dice) {
     showBackground = true
 )
 @Composable
-fun diceRollerPreview() {
+fun DiceRollerPreview() {
     DndstorygeneratorappTheme {
-        rollDice(dice = Dice(6, R.drawable.d6))
+        RollDice(dice = Dice(6, R.drawable.d6))
     }
 }
 
@@ -131,8 +140,8 @@ fun diceRollerPreview() {
     showBackground = true
 )
 @Composable
-fun dicesRollerPreview() {
+fun DicesRollerPreview() {
     DndstorygeneratorappTheme {
-        rollAllDices()
+        RollAllDices()
     }
 }
