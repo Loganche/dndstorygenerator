@@ -1,4 +1,4 @@
-package lxndrloginov.projects.dndstorygenerator
+package lxndrloginov.projects.dndstorygenerator.screens
 
 import android.content.res.Configuration
 import android.os.Bundle
@@ -24,18 +24,7 @@ import lxndrloginov.projects.dndstorygenerator.data.Story
 import lxndrloginov.projects.dndstorygenerator.data.StorySampleData
 import lxndrloginov.projects.dndstorygenerator.ui.theme.DndstorygeneratorappTheme
 
-class StoryGenerator : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            DndstorygeneratorappTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(color = MaterialTheme.colors.background) {
-                    ListStories()
-                }
-            }
-        }
-    }
+class StoryGenerator {
 }
 
 
