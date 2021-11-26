@@ -7,10 +7,13 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.R
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
 import lxndrloginov.projects.dndstorygenerator.ui.theme.DndstorygeneratorappTheme
 
@@ -29,25 +32,75 @@ fun ScaffoldComponent(
         content = content,
         scaffoldState = scaffoldState,
         drawerContent = {
+            Text("D&D Story Generator",
+                fontSize = 24.sp,
+                style = MaterialTheme.typography.subtitle2,
+                modifier = Modifier.padding(16.dp))
+            Divider()
+
             Column(verticalArrangement = Arrangement.Top) {
-                Row(
-                    horizontalArrangement = Arrangement.Start,
+                CardComponent(
+                    elevation = 0.dp,
                     modifier = Modifier
                         .fillMaxWidth()
+                        .height(70.dp)
                         .clickable { }
-                ) {
-                    Icon(Icons.Filled.Person, contentDescription = "User Profile Screen")
-                    Text(text = "Profile")
-                }
-                Row(
-                    horizontalArrangement = Arrangement.Start,
+                        .padding(8.dp),
+                    content = {
+                        Row(
+                            horizontalArrangement = Arrangement.Start,
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier
+                        ) {
+                            Icon(
+                                Icons.Filled.Person,
+                                contentDescription = "User Profile Screen",
+                                modifier = Modifier
+                                    .scale(1.5f)
+                                    .padding(start = 8.dp)
+                            )
+                            Spacer(modifier = Modifier.width(16.dp))
+                            Text(
+                                text = "Profile",
+                                fontSize = 24.sp,
+                                style = MaterialTheme.typography.body2,
+                                modifier = Modifier
+                                    .padding(horizontal = 8.dp)
+                            )
+                        }
+                    }
+                )
+                CardComponent(
+                    elevation = 0.dp,
                     modifier = Modifier
                         .fillMaxWidth()
+                        .height(70.dp)
                         .clickable { }
-                ) {
-                    Icon(Icons.Filled.Info, contentDescription = "Additional Info Screen")
-                    Text(text = "About")
-                }
+                        .padding(8.dp),
+                    content = {
+                        Row(
+                            horizontalArrangement = Arrangement.Start,
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier
+                        ) {
+                            Icon(
+                                Icons.Filled.Info,
+                                contentDescription = "Additional Info Screen",
+                                modifier = Modifier
+                                    .scale(1.5f)
+                                    .padding(start = 8.dp)
+                            )
+                            Spacer(modifier = Modifier.width(16.dp))
+                            Text(
+                                text = "About",
+                                fontSize = 24.sp,
+                                style = MaterialTheme.typography.body2,
+                                modifier = Modifier
+                                    .padding(horizontal = 8.dp)
+                            )
+                        }
+                    }
+                )
             }
         },
         topBar = {
@@ -76,9 +129,24 @@ fun ScaffoldComponent(
                         .fillMaxWidth()
                         .padding(horizontal = 4.dp)
                 ) {
-                    IconButton(onClick = { }) { Icon(Icons.Filled.Casino, contentDescription = "Dices Screen") }
-                    IconButton(onClick = { }) { Icon(Icons.Filled.Article, contentDescription = "Story Screen") }
-                    IconButton(onClick = { }) { Icon(Icons.Filled.MenuBook, contentDescription = "Scenarios Screen") }
+                    IconButton(onClick = { }) {
+                        Icon(
+                            Icons.Filled.Casino,
+                            contentDescription = "Dices Screen"
+                        )
+                    }
+                    IconButton(onClick = { }) {
+                        Icon(
+                            Icons.Filled.Article,
+                            contentDescription = "Story Screen"
+                        )
+                    }
+                    IconButton(onClick = { }) {
+                        Icon(
+                            Icons.Filled.MenuBook,
+                            contentDescription = "Scenarios Screen"
+                        )
+                    }
                 }
             }
         }

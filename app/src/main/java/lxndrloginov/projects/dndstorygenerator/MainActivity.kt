@@ -20,7 +20,7 @@ class MainActivity : ComponentActivity() {
             DndstorygeneratorappTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    StoryScreen()
+                    DiceScreen()
                 }
             }
         }
@@ -33,6 +33,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     DndstorygeneratorappTheme {
-        StoryScreen()
+        DiceScreen()
     }
 }
