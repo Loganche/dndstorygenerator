@@ -29,10 +29,7 @@ import lxndrloginov.projects.dndstorygenerator.ui.theme.DndstorygeneratorappThem
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun DiceScreen() {
-    ScaffoldComponent(
-        modifier = Modifier,
-        content = { DiceGrid() },
-    )
+    ScaffoldComponent( content = { DiceGrid() }, )
 }
 
 
@@ -40,7 +37,6 @@ fun DiceScreen() {
 @Composable
 fun DiceGrid(dices: List<Dice> = DiceData.dices) {
     LazyGridComponent(
-        modifier = Modifier,
         numCells = 2,
         content = { items(dices) { dice -> DiceCard(dice) } },
     )
@@ -55,7 +51,6 @@ fun DiceCard(dice: Dice) {
     val diceIcon by remember { mutableStateOf(dice.imageId) }
 
     CardComponent(
-        elevation = 4.dp,
         modifier = Modifier
             .padding(8.dp)
             .fillMaxWidth()
@@ -105,7 +100,7 @@ fun DiceCard(dice: Dice) {
 @Composable
 fun DiceCardPreview() {
     DndstorygeneratorappTheme {
-        DiceCard(dice = Dice(6, R.drawable.d6))
+        DiceCard( dice = Dice(6, R.drawable.d6) )
     }
 }
 

@@ -59,18 +59,16 @@ fun ScaffoldComponent(
                         .padding(horizontal = 4.dp)
                 ) {
                     IconButton(onClick = {
-                        when(isExpanded) {
+                        when (isExpanded) {
                             true -> scope.launch { scaffoldState.drawerState.close() }
                             false -> scope.launch { scaffoldState.drawerState.open() }
                         }
-                    }) {
-                        Icon(Icons.Filled.Menu, contentDescription = "Drawer Menu")
-                    }
+                    }) { Icon(Icons.Filled.Menu, contentDescription = "Drawer Menu") }
                 }
             }
         },
         bottomBar = {
-            BottomAppBar() {
+            BottomAppBar {
                 Row(
                     horizontalArrangement = Arrangement.SpaceEvenly,
                     verticalAlignment = Alignment.CenterVertically,
@@ -78,15 +76,9 @@ fun ScaffoldComponent(
                         .fillMaxWidth()
                         .padding(horizontal = 4.dp)
                 ) {
-                    IconButton(onClick = { }) {
-                        Icon(Icons.Filled.Casino, contentDescription = "Dices Screen")
-                    }
-                    IconButton(onClick = { }) {
-                        Icon(Icons.Filled.Article, contentDescription = "Story Screen")
-                    }
-                    IconButton(onClick = { }) {
-                        Icon(Icons.Filled.MenuBook, contentDescription = "Scenarios Screen")
-                    }
+                    IconButton(onClick = { }) { Icon(Icons.Filled.Casino, contentDescription = "Dices Screen") }
+                    IconButton(onClick = { }) { Icon(Icons.Filled.Article, contentDescription = "Story Screen") }
+                    IconButton(onClick = { }) { Icon(Icons.Filled.MenuBook, contentDescription = "Scenarios Screen") }
                 }
             }
         }
@@ -106,6 +98,6 @@ fun ScaffoldComponent(
 @Composable
 fun ScaffoldFragmentPreview() {
     DndstorygeneratorappTheme {
-        ScaffoldComponent( content = { Text(text = "Scaffold Preview.") } )
+        ScaffoldComponent(content = { Text(text = "Scaffold Preview.") })
     }
 }

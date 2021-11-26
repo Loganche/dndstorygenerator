@@ -14,7 +14,7 @@ fun LazyGridComponent(
     modifier: Modifier = Modifier,
     numCells: Int,
     content: @ExtensionFunctionType LazyGridScope.() -> Unit,
-    ) {
+) {
     LazyVerticalGrid(
         modifier = modifier,
         cells = GridCells.Fixed(numCells),
