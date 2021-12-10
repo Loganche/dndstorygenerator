@@ -1,156 +1,95 @@
 package lxndrloginov.projects.dndstorygenerator.components
 
 import android.content.res.Configuration
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.R
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.launch
+import lxndrloginov.projects.dndstorygenerator.BackPressHandler
+import lxndrloginov.projects.dndstorygenerator.MainViewModel
+import lxndrloginov.projects.dndstorygenerator.NavigationHost
+import lxndrloginov.projects.dndstorygenerator.screens.Screens
+import lxndrloginov.projects.dndstorygenerator.screens.screensInHomeFromBottomNav
 import lxndrloginov.projects.dndstorygenerator.ui.theme.DndstorygeneratorappTheme
 
 
 @Composable
-fun ScaffoldComponent(
-    modifier: Modifier = Modifier,
-    content: @Composable (PaddingValues) -> Unit,
-) {
+fun AppScaffold() {
+    val viewModel: MainViewModel = viewModel()
+    val navController = rememberNavController()
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
-    var isExpanded by remember { mutableStateOf(false) }
+    val currentScreen by viewModel.currentScreen.observeAsState()
 
-    Scaffold(
-        modifier = modifier,
-        content = content,
-        scaffoldState = scaffoldState,
-        drawerContent = {
-            Text("D&D Story Generator",
-                fontSize = 24.sp,
-                style = MaterialTheme.typography.subtitle2,
-                modifier = Modifier.padding(16.dp))
-            Divider()
-
-            Column(verticalArrangement = Arrangement.Top) {
-                CardComponent(
-                    elevation = 0.dp,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(70.dp)
-                        .clickable { }
-                        .padding(8.dp),
-                    content = {
-                        Row(
-                            horizontalArrangement = Arrangement.Start,
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier
-                        ) {
-                            Icon(
-                                Icons.Filled.Person,
-                                contentDescription = "User Profile Screen",
-                                modifier = Modifier
-                                    .scale(1.5f)
-                                    .padding(start = 8.dp)
-                            )
-                            Spacer(modifier = Modifier.width(16.dp))
-                            Text(
-                                text = "Profile",
-                                fontSize = 24.sp,
-                                style = MaterialTheme.typography.body2,
-                                modifier = Modifier
-                                    .padding(horizontal = 8.dp)
-                            )
-                        }
-                    }
-                )
-                CardComponent(
-                    elevation = 0.dp,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(70.dp)
-                        .clickable { }
-                        .padding(8.dp),
-                    content = {
-                        Row(
-                            horizontalArrangement = Arrangement.Start,
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier
-                        ) {
-                            Icon(
-                                Icons.Filled.Info,
-                                contentDescription = "Additional Info Screen",
-                                modifier = Modifier
-                                    .scale(1.5f)
-                                    .padding(start = 8.dp)
-                            )
-                            Spacer(modifier = Modifier.width(16.dp))
-                            Text(
-                                text = "About",
-                                fontSize = 24.sp,
-                                style = MaterialTheme.typography.body2,
-                                modifier = Modifier
-                                    .padding(horizontal = 8.dp)
-                            )
-                        }
-                    }
-                )
-            }
-        },
-        topBar = {
-            TopAppBar {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 4.dp)
-                ) {
-                    IconButton(onClick = {
-                        when (isExpanded) {
-                            true -> scope.launch { scaffoldState.drawerState.close() }
-                            false -> scope.launch { scaffoldState.drawerState.open() }
-                        }
-                    }) { Icon(Icons.Filled.Menu, contentDescription = "Drawer Menu") }
-                }
-            }
-        },
-        bottomBar = {
-            BottomAppBar {
-                Row(
-                    horizontalArrangement = Arrangement.SpaceEvenly,
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 4.dp)
-                ) {
-                    IconButton(onClick = { }) {
-                        Icon(
-                            Icons.Filled.Casino,
-                            contentDescription = "Dices Screen"
-                        )
-                    }
-                    IconButton(onClick = { }) {
-                        Icon(
-                            Icons.Filled.Article,
-                            contentDescription = "Story Screen"
-                        )
-                    }
-                    IconButton(onClick = { }) {
-                        Icon(
-                            Icons.Filled.MenuBook,
-                            contentDescription = "Scenarios Screen"
-                        )
-                    }
-                }
+    if (scaffoldState.drawerState.isOpen) {
+        BackPressHandler {
+            scope.launch {
+                scaffoldState.drawerState.close()
             }
         }
-    )
+    }
+
+    var topBar : @Composable () -> Unit = {
+        TopBar(
+            title = currentScreen!!.title,
+            buttonIcon = Icons.Filled.Menu,
+            onButtonClicked = {
+                scope.launch {
+                    scaffoldState.drawerState.open()
+                }
+            }
+        )
+    }
+    if (currentScreen == Screens.DrawerScreens.About) {
+        topBar = {
+            TopBar(
+                title = Screens.DrawerScreens.About.title,
+                buttonIcon = Icons.Filled.ArrowBack,
+                onButtonClicked = {
+                    navController.popBackStack()
+                }
+            )
+        }
+    }
+
+    val bottomBar: @Composable () -> Unit = {
+        if (currentScreen is Screens.DrawerScreens || currentScreen is Screens.HomeScreens) {
+            BottomBar(
+                navController = navController,
+                screens = screensInHomeFromBottomNav
+            )
+        }
+    }
+
+    Scaffold(
+        topBar = {
+            topBar()
+        },
+        bottomBar = {
+            bottomBar()
+        },
+        scaffoldState = scaffoldState,
+        drawerContent = {
+            Drawer { route ->
+                scope.launch {
+                    scaffoldState.drawerState.close()
+                }
+                navController.navigate(route) {
+                    navController.graph.startDestinationRoute?.let { popUpTo(it) }
+                    launchSingleTop = true
+                }
+            }
+        },
+        drawerGesturesEnabled = scaffoldState.drawerState.isOpen,
+    ) { innerPadding ->
+        NavigationHost(navController = navController, viewModel = viewModel)
+    }
 }
 
 
@@ -166,6 +105,6 @@ fun ScaffoldComponent(
 @Composable
 fun ScaffoldFragmentPreview() {
     DndstorygeneratorappTheme {
-        ScaffoldComponent(content = { Text(text = "Scaffold Preview.") })
+        AppScaffold()
     }
 }
