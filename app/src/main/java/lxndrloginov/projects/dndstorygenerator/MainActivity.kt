@@ -7,9 +7,9 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.tooling.preview.Preview
-import lxndrloginov.projects.dndstorygenerator.screens.DiceScreen
-import lxndrloginov.projects.dndstorygenerator.screens.StoryScreen
+import lxndrloginov.projects.dndstorygenerator.components.AppScaffold
 import lxndrloginov.projects.dndstorygenerator.ui.theme.DndstorygeneratorappTheme
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -20,7 +20,9 @@ class MainActivity : ComponentActivity() {
             DndstorygeneratorappTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    DiceScreen()
+                    CompositionLocalProvider(LocalBackPressedDispatcher provides this.onBackPressedDispatcher) {
+                        AppScaffold()
+                    }
                 }
             }
         }
@@ -33,6 +35,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     DndstorygeneratorappTheme {
-        DiceScreen()
+        AppScaffold()
     }
 }
