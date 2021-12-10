@@ -3,6 +3,7 @@ package lxndrloginov.projects.dndstorygenerator.components
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -12,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import lxndrloginov.projects.dndstorygenerator.ui.theme.DndstorygeneratorappTheme
 
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun CardComponent(
     modifier: Modifier = Modifier,
@@ -38,6 +40,6 @@ fun CardComponent(
 @Composable
 fun CardComponentPreview() {
     DndstorygeneratorappTheme {
-        CardComponent( content = { Text(text = "Card Preview", modifier = Modifier.padding(16.dp)) } )
+        CardComponent( content = { Text(text = "Card Preview", modifier = Modifier.padding(16.dp)) })
     }
 }
