@@ -11,6 +11,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import lxndrloginov.projects.dndstorygenerator.MainViewModel
 import lxndrloginov.projects.dndstorygenerator.components.*
 import lxndrloginov.projects.dndstorygenerator.data.Story
 import lxndrloginov.projects.dndstorygenerator.data.StorySampleData
@@ -27,28 +29,26 @@ Design of Button, TextField in components
 
 
 @Composable
-fun StoryScreen() {
-    ScaffoldComponent(
-        content = {
-            val inputSentence = remember { mutableStateOf("") }
+fun StoryScreen(viewModel: MainViewModel) {
+    viewModel.setCurrentScreen(Screens.HomeScreens.Story)
 
-            Column( verticalArrangement = Arrangement.Bottom ) {
-                StoryColumn()
-                TextFieldComponent(
-                    value = inputSentence.value,
-                    onValueChange = { newText -> inputSentence.value = newText },
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                )
-                ButtonComponent(
-                    onClick = { },
-                    content = { Text(text = "Generate") },
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                )
-            }
-        },
-    )
+    val inputSentence = remember { mutableStateOf("") }
+
+    Column(verticalArrangement = Arrangement.Bottom) {
+        StoryColumn()
+        TextFieldComponent(
+            value = inputSentence.value,
+            onValueChange = { newText -> inputSentence.value = newText },
+            modifier = Modifier
+                .fillMaxWidth(),
+        )
+        ButtonComponent(
+            onClick = { },
+            content = { Text(text = "Generate") },
+            modifier = Modifier
+                .fillMaxWidth(),
+        )
+    }
 }
 
 @Composable

@@ -17,10 +17,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import lxndrloginov.projects.dndstorygenerator.MainViewModel
 import lxndrloginov.projects.dndstorygenerator.R
 import lxndrloginov.projects.dndstorygenerator.components.CardComponent
 import lxndrloginov.projects.dndstorygenerator.components.LazyGridComponent
-import lxndrloginov.projects.dndstorygenerator.components.ScaffoldComponent
 import lxndrloginov.projects.dndstorygenerator.data.Dice
 import lxndrloginov.projects.dndstorygenerator.data.DiceData
 import lxndrloginov.projects.dndstorygenerator.ui.theme.DndstorygeneratorappTheme
@@ -28,8 +29,9 @@ import lxndrloginov.projects.dndstorygenerator.ui.theme.DndstorygeneratorappThem
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun DiceScreen() {
-    ScaffoldComponent( content = { DiceGrid() }, )
+fun DiceScreen(viewModel: MainViewModel) {
+    viewModel.setCurrentScreen(Screens.HomeScreens.Dice)
+    DiceGrid()
 }
 
 
