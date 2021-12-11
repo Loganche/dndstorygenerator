@@ -61,7 +61,7 @@ fun StoryColumn(stories: List<Story> = StorySampleData.stories) {
 
 @Composable
 fun StoryCard(story: Story) {
-    val generatedText by remember { mutableStateOf(story.generateText()) }
+    val generatedText by remember { mutableStateOf(story.getOutput()) }
     var isExpanded by remember { mutableStateOf(false) }
 
 

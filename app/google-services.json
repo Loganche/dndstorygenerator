@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "494846099580",
+    "project_id": "dndstorygenerator-22968",
+    "storage_bucket": "dndstorygenerator-22968.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:494846099580:android:941da0010c9df9a1ab09f9",
+        "android_client_info": {
+          "package_name": "lxndrloginov.projects.dndstorygenerator"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "494846099580-b4rnq7cme5nl8qsai436bdtg5frdp5r0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfJwM9-Rg1Lg5BaKd2B13FHi8RQKpIdaM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "494846099580-b4rnq7cme5nl8qsai436bdtg5frdp5r0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
